@@ -1,3 +1,5 @@
+//https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Client-side_web_APIs/Video_and_audio_APIs
+
 window.onload = function () {
     const video = document.getElementById('video');
     const play = document.getElementById('play');
@@ -37,12 +39,26 @@ window.onload = function () {
 
     // update progress and timestamp
     function updateProgress() {
-        return true;
+        progress.value = (video.currentTime / video.duration) * 100;
+
+        // Get minutes
+        let mins = Math.floor(video.currentTime / 60);
+        if (mins < 10) {
+            mins = '0' + String(mins);
+        }
+
+        // get seconds
+        let seconds = Math.floor(video.currentTime % 60);
+        if (seconds < 10) {
+            seconds = '0' + String(seconds);
+        }
+
+        timestamp.innerHTML = `${mins}:${seconds}`;
     }
 
     // Set video time to progress
     function setVideoProgress() {
-        return true;
+        video.currentTime = (+progress.value * video.duration) / 100;
     }
 
     function stopVideo() {
